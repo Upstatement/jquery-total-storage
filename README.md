@@ -30,3 +30,10 @@ jquery-total-storage
  * @author Jared Novack/jared@upstatement.com
  * @version 1.1.1
  * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
+ 
+## Some background:
+### Why?
+Last year my firm worked on a project to help seniors calculate their savings, social security, mortgate, etc. so they could better plan for retirement. The involved the users entering a lot of data (and because of privacy risks we didn't want to store all that personal financial data). Using the browser's local storage was perfect ... except for Internet Explorer. So I wrote this as a way to integrate localStorage or cookies depending on what the browser could handle AND let me access it in a super-simple way all across the application.
+
+### Many thanks to:
+Andris Reinman and Klaus Hartl. Their plugins (jStorage and Cookie, respectively) provided the roadmap to make this. Also feedback and comments from users have been most helpful in making this more efficient and killing some bugs.
