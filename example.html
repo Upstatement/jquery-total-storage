@@ -1,0 +1,125 @@
+<!DOCTYPE html> <!--[if lt IE 7 ]><html
+dir="ltr" lang="en-US" class="no-js ie ie6 lte7 lte8 lte9"><![endif]--> <!--[if IE 7 ]><html
+dir="ltr" lang="en-US" class="no-js ie ie7 lte7 lte8 lte9"><![endif]--> <!--[if IE 8 ]><html
+dir="ltr" lang="en-US" class="no-js ie ie8 lte8 lte9"><![endif]--> <!--[if IE 9 ]><html
+dir="ltr" lang="en-US" class="no-js ie ie9 lte9"><![endif]--> <!--[if (gt IE 9)|!(IE)]><!--><html
+dir="ltr" lang="en-US" class="no-js"><!--<![endif]--><head> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.total-storage.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			refreshKeyList();
+			$('.trigger-key-save').click(function(e){
+				e.preventDefault();
+				var key = $('#field-key').val();
+				var val = $('#field-value').val();
+				if (val){
+					$.totalStorage(key, val);
+					alert('Saved value for ' + key);
+				} else {
+					alert('You need to enter a value, fool');
+				}
+				refreshKeyList();
+			});
+			
+			$('.trigger-key-get').click(function(e){
+				e.preventDefault();
+				var key = $('#field-key-get').val();
+				trace(key);
+				var val = $.totalStorage(key);
+				trace('val = ' + val);
+				if (val){
+					$('#value-output').html(val);
+				}
+			});
+			
+			function refreshKeyList(){
+				var list = $.totalStorage.getAll();
+				var str = '';
+				for (var i = 0; i<list.length; i++){
+					if (i == list.length - 1){
+						str += 'and ' + list[i].key;
+					} else {
+						str += list[i].key + ', ';
+					}
+				}
+				$('.key-list').html(str);
+			}
+			
+			function trace(m){
+				try {
+					console.log(m);
+				} catch(e){
+				
+				}
+			}
+		});
+	</script>
+	<style type="text/css">
+		* {
+			box-sizing:border-box; font-family:"Helvetica Neue", Arial, sans-serif;
+		}
+		
+		.io-col {
+			width:46%; padding:20px; border:1px solid #CCC; float:left; height:300px; margin:2%;
+		}
+		
+		.big-button {
+			background-color:#6296be; color:white; font-weight:bold; font-size:18px;
+			border-radius:12px; box-shadow:0px 0px 15px rgba(0, 0, 0, .35); border:2px solid white; padding:5px 20px;
+		}
+		
+		label {
+			min-width:20%; font-size:12px; float:left; padding-top:4px;
+		}	
+		
+		fieldset {
+			border:0px; padding:0px; margin:0px; margin-bottom:20px;
+		}
+		
+		.text-input {
+			border:1px solid #CCC; padding:4px 10px; font-size:16px; width:80%; color:#333;
+		}
+		
+		pre {
+			font-family:courier, 'courier new', mono-space;
+		}
+		h4 {
+			margin-top:0px;
+		}
+	</style>
+</head>
+<body>
+<form id="input" class="io-col">
+	<h4>To set a value:</h4>
+	<pre>$.totalStorage(key, value);</pre>
+	<fieldset>
+		<label for="field-key">Key:</label>
+		<input type="text" id="field-key" placeholder="Enter a key to save under" class="text-input" />
+	</fieldset>
+	<fieldset>
+		<label for="field-value">Value:</label>
+		<textarea id="field-value" placeholder="Enter the value that should be stored" class="text-input"></textarea>
+	</fieldset>
+	<input type="submit" class="trigger-key-save big-button" value="Save!">
+	
+</form>
+<form id="output" class="io-col">
+	<h4>To retrieve a value:</h4>
+	<pre>$.totalStorage(key);</pre>
+	<fieldset>
+		<label for="field-key">Key:</label>
+		<input type="text" id="field-key-get" class="text-input" />
+		<p class="hint">Available values are: <span class="key-list"></span></p>
+	</fieldset>
+	<fieldset>
+		<label for="value-output">Result:</label>
+		<div id="value-output"></div>
+	</fieldset>
+	<input type="submit" class="trigger-key-get big-button" value="Get!">
+	
+	
+</form>
+
+</body>
+</html>
