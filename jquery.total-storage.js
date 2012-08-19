@@ -71,6 +71,10 @@
 		return $.totalStorage.impl.getAll();
 	}
 	
+	$.totalStorage.deleteItem = function(key){
+		return $.totalStorage.impl.deleteItem(key);
+	}
+	
 	/* Object to hold all methods: public and private */
 	
 	$.totalStorage.impl = {
@@ -107,7 +111,18 @@
  			}
 			return this.parseResult(ls.getItem(key));
 		},	
-		
+		deleteItem: function(key){
+			if (!supported){
+				try {
+					$.cookie(key, null);
+					return true;
+				} catch(e){
+					return false;
+				}
+ 			}
+			ls.removeItem(key);
+			return true;
+		},	
 		getAll: function(){
 			var items = new Array();
 			if (!supported){
