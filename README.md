@@ -9,7 +9,7 @@ jquery-total-storage
    Your efforts to defeat it will prove futile. 
  * Simple as shit. jStorage and some other very well-written plugins provide a bevy of
    options for expiration, security and so forth. Frequently this is more power than you
-   need and vulnerable to confusion if you're just want it to work (JWITW)
+   need and vulnerable to confusion if you just want it to work (JWITW)
  
 ## Some examples  
  * @desc Set the value of a key to a string
@@ -28,7 +28,7 @@ jquery-total-storage
  * @name $.totalStorage
  * @cat Plugins/Cookie
  * @author Jared Novack/jared@upstatement.com
- * @version 1.1.1
+ * @version 1.1.2
  * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
  
 ## Some background:
