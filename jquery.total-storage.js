@@ -38,7 +38,7 @@
  * @name $.totalStorage
  * @cat Plugins/Cookie
  * @author Jared Novack/jared@upstatement.com
- * @version 1.1.1
+ * @version 1.1.2
  * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
  */
 
