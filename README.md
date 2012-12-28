@@ -1,6 +1,6 @@
 jquery-total-storage
 ====================
-
+![image](http://upstatement.com/wp-content/uploads/2012/01/jquery-total-storage1.png)
 ## What makes it TOTAL Storage?
  
  * The browser doesn't support local storage it will fall-back to cookies! (Using the
