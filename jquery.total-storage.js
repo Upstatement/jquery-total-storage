@@ -42,11 +42,11 @@
  * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
  */
 
-;(function($){
+;(function($, undefined){
 
 	/* Variables I'll need throghout */
 
-	var ls = window.localStorage;
+	var ls = (typeof window.localStorage === 'undefined') ? window.localStorage : undefined;
 	var supported;
 	if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
 		supported = false;
