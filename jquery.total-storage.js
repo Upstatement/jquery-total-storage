@@ -108,7 +108,8 @@
 					return null;
 				}
 			}
-			return this.parseResult(ls.getItem(key));
+			var item = ls.getItem(key);
+			return this.parseResult(item);
 		},
 		deleteItem: function(key){
 			if (!supported){
@@ -125,7 +126,6 @@
 		getAll: function(){
 			var items = [];
 			if (!supported){
-				console.log('not supported');
 				try {
 					var pairs = document.cookie.split(";");
 					for (var i = 0; i<pairs.length; i++){
@@ -149,6 +149,9 @@
 			var ret;
 			try {
 				ret = JSON.parse(res);
+				if (typeof ret == 'undefined'){
+					ret = res;
+				}
 				if (ret == 'true'){
 					ret = true;
 				}
@@ -158,7 +161,9 @@
 				if (parseFloat(ret) == ret && typeof ret != "object"){
 					ret = parseFloat(ret);
 				}
-			} catch(e){}
+			} catch(e){
+				ret = res;
+			}
 			return ret;
 		}
 	};
