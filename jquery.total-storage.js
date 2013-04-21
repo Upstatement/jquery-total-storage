@@ -46,7 +46,7 @@
 
 	/* Variables I'll need throghout */
 
-	var ls = (typeof window.localStorage === 'undefined') ? window.localStorage : undefined;
+	var ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
 	var supported;
 	if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
 		supported = false;
@@ -57,36 +57,36 @@
 
 	$.totalStorage = function(key, value, options){
 		return $.totalStorage.impl.init(key, value);
-	}
-	
+	};
+
 	$.totalStorage.setItem = function(key, value){
 		return $.totalStorage.impl.setItem(key, value);
-	}
-	
+	};
+
 	$.totalStorage.getItem = function(key){
 		return $.totalStorage.impl.getItem(key);
-	}
-	
+	};
+
 	$.totalStorage.getAll = function(){
 		return $.totalStorage.impl.getAll();
-	}
-	
+	};
+
 	$.totalStorage.deleteItem = function(key){
 		return $.totalStorage.impl.deleteItem(key);
-	}
-	
+	};
+
 	/* Object to hold all methods: public and private */
-	
+
 	$.totalStorage.impl = {
-		
+
 		init: function(key, value){
 			if (typeof value != 'undefined') {
-				return this.setItem(key, value);	
+				return this.setItem(key, value);
 			} else {
 				return this.getItem(key);
 			}
 		},
-		
+
 		setItem: function(key, value){
 			if (!supported){
 				try {
@@ -100,7 +100,6 @@
 			ls.setItem(key, saver);
 			return this.parseResult(saver);
 		},
-		
 		getItem: function(key){
 			if (!supported){
 				try {
@@ -108,9 +107,9 @@
 				} catch(e){
 					return null;
 				}
- 			}
+			}
 			return this.parseResult(ls.getItem(key));
-		},	
+		},
 		deleteItem: function(key){
 			if (!supported){
 				try {
@@ -119,13 +118,14 @@
 				} catch(e){
 					return false;
 				}
- 			}
+			}
 			ls.removeItem(key);
 			return true;
-		},	
+		},
 		getAll: function(){
-			var items = new Array();
+			var items = [];
 			if (!supported){
+				console.log('not supported');
 				try {
 					var pairs = document.cookie.split(";");
 					for (var i = 0; i<pairs.length; i++){
@@ -137,15 +137,14 @@
 					return null;
 				}
 			} else {
-				for (var i in ls){
-					if (i.length){
-						items.push({key:i, value:this.parseResult(ls.getItem(i))});
+				for (var j in ls){
+					if (j.length){
+						items.push({key:j, value:this.parseResult(ls.getItem(j))});
 					}
 				}
 			}
 			return items;
 		},
-		
 		parseResult: function(res){
 			var ret;
 			try {
@@ -162,6 +161,5 @@
 			} catch(e){}
 			return ret;
 		}
-	}
-
+	};
 })(jQuery);
