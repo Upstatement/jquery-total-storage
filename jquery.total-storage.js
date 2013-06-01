@@ -46,13 +46,21 @@
 
 	/* Variables I'll need throghout */
 
-	var ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
-	var supported;
-	if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
-		supported = false;
-	} else {
-		supported = true;
+	var supported, ls;
+	if ('localStorage' in window){
+		try {
+			ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
+			if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
+				supported = false;
+			} else {
+				supported = true;
+			}
+		}
+		catch (err){
+			supported = false;
+		}
 	}
+
 	/* Make the methods public */
 
 	$.totalStorage = function(key, value, options){
