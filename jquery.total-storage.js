@@ -46,7 +46,7 @@
 
 	/* Variables I'll need throghout */
 
-	var supported, ls;
+	var supported, ls, mod = 'test';
 	if ('localStorage' in window){
 		try {
 			ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
@@ -55,11 +55,15 @@
 			} else {
 				supported = true;
 			}
+			
+			window.localStorage.setItem(mod, '1');
+			window.localStorage.removeItem(mod);
 		}
 		catch (err){
 			supported = false;
 		}
 	}
+
 
 	/* Make the methods public */
 
