@@ -1,14 +1,14 @@
 {
-	"name": "jquery-total-storage",
-	"version": "1.0.0",
-	"description": "Local storage for every browser",
-	"license": "MIT",
-	"ignore": [
-		".jshintrc",
-		"**/*.txt"
-	],
-	"dependencies": {
-		"jquery.cookie": ">= 1.2",
-		"jquery": ">= 1.6.1",
-	}
+    "name": "jquery-total-storage",
+    "version": "1.0.0",
+    "description": "Local storage for every browser",
+    "license": "MIT",
+    "ignore": [
+        ".jshintrc",
+        "**/*.txt"
+    ],
+    "dependencies": {
+        "jquery.cookie": ">= 1.2",
+        "jquery": ">= 1.6.1"
+    }
 }
