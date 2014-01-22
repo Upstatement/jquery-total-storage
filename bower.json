@@ -1,14 +1,14 @@
 {
-	"name": "upstatement/jquery-total-storage",
+	"name": "jquery-total-storage",
 	"version": "1.0.0",
 	"description": "Local storage for every browser",
-	"license": "Eclipse",
+	"license": "MIT",
 	"ignore": [
 		".jshintrc",
 		"**/*.txt"
 	],
 	"dependencies": {
-		"jquery.cookie": "latest",
-		"jquery": "latest",
+		"jquery.cookie": ">= 1.2",
+		"jquery": ">= 1.6.1",
 	}
 }
