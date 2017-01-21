@@ -1,4 +1,3 @@
-![image](http://upstatement.com/wp-content/uploads/2012/01/jquery-total-storage1.png)
 Dead-Simple local storage for every browser and device
 
 ## What makes it TOTAL Storage?
@@ -41,4 +40,4 @@ Last year my firm worked on a project to help seniors calculate their savings, s
 ### Many thanks to:
 Andris Reinman and Klaus Hartl. Their plugins (jStorage and Cookie, respectively) provided the roadmap to make this. Also feedback and comments from users have been most helpful in making this more efficient and killing some bugs.
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jarednova/jquery-total-storage/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
