@@ -8,6 +8,12 @@
  *
  * Total Storage is the conceptual the love child of jStorage by Andris Reinman, 
  * and Cookie by Klaus Hartl -- though this is not connected to either project.
+ *
+ * @name $.totalStorage
+ * @cat Plugins/Cookie
+ * @author Jared Novack/jared@upstatement.com
+ * @version 1.1.3
+ * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
  */
 
 /**
@@ -34,149 +40,143 @@
 			$.totalStorage('people', myArray);
 			//to return:
 			$.totalStorage('people');
- *
- * @name $.totalStorage
- * @cat Plugins/Cookie
- * @author Jared Novack/jared@upstatement.com
- * @version 1.1.2
- * @url http://upstatement.com/blog/2012/01/jquery-local-storage-done-right-and-easy/
  */
 
-;(function($, undefined){
+;(function ($, undefined) {
 
-	/* Variables I'll need throghout */
+	/* Variables I'll need throughout */
 
-	var supported, ls, mod = 'test';
-	if ('localStorage' in window){
-		try {
-			ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
-			if (typeof ls == 'undefined' || typeof window.JSON == 'undefined'){
-				supported = false;
-			} else {
-				supported = true;
-			}
-			
-			window.localStorage.setItem(mod, '1');
-			window.localStorage.removeItem(mod);
-		}
-		catch (err){
-			supported = false;
-		}
-	}
+  var supported, ls, mod = 'test';
+  if ('localStorage' in window) {
+    try {
+      ls = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage;
+      if (typeof ls == 'undefined' || typeof window.JSON == 'undefined') {
+        supported = false;
+      } else {
+        supported = true;
+      }
+
+      window.localStorage.setItem(mod, '1');
+      window.localStorage.removeItem(mod);
+    }
+    catch (err) {
+      supported = false;
+    }
+  }
 
 
 	/* Make the methods public */
 
-	$.totalStorage = function(key, value, options){
-		return $.totalStorage.impl.init(key, value);
-	};
+  $.totalStorage = function (key, value, options) {
+    return $.totalStorage.impl.init(key, value, options);
+  };
 
-	$.totalStorage.setItem = function(key, value){
-		return $.totalStorage.impl.setItem(key, value);
-	};
+  $.totalStorage.setItem = function (key, value, options) {
+    return $.totalStorage.impl.setItem(key, value, options);
+  };
 
-	$.totalStorage.getItem = function(key){
-		return $.totalStorage.impl.getItem(key);
-	};
+  $.totalStorage.getItem = function (key) {
+    return $.totalStorage.impl.getItem(key);
+  };
 
-	$.totalStorage.getAll = function(){
-		return $.totalStorage.impl.getAll();
-	};
+  $.totalStorage.getAll = function () {
+    return $.totalStorage.impl.getAll();
+  };
 
-	$.totalStorage.deleteItem = function(key){
-		return $.totalStorage.impl.deleteItem(key);
-	};
+  $.totalStorage.deleteItem = function (key) {
+    return $.totalStorage.impl.deleteItem(key);
+  };
 
 	/* Object to hold all methods: public and private */
 
-	$.totalStorage.impl = {
+  $.totalStorage.impl = {
 
-		init: function(key, value){
-			if (typeof value != 'undefined') {
-				return this.setItem(key, value);
-			} else {
-				return this.getItem(key);
-			}
-		},
+    init: function (key, value, options) {
+      if (typeof value != 'undefined') {
+        return this.setItem(key, value, options);
+      } else {
+        return this.getItem(key);
+      }
+    },
 
-		setItem: function(key, value){
-			if (!supported){
-				try {
-					$.cookie(key, value);
-					return value;
-				} catch(e){
-					console.log('Local Storage not supported by this browser. Install the cookie plugin on your site to take advantage of the same functionality. You can get it at https://github.com/carhartl/jquery-cookie');
-				}
-			}
-			var saver = JSON.stringify(value);
-			ls.setItem(key, saver);
-			return this.parseResult(saver);
-		},
-		getItem: function(key){
-			if (!supported){
-				try {
-					return this.parseResult($.cookie(key));
-				} catch(e){
-					return null;
-				}
-			}
-			var item = ls.getItem(key);
-			return this.parseResult(item);
-		},
-		deleteItem: function(key){
-			if (!supported){
-				try {
-					$.cookie(key, null);
-					return true;
-				} catch(e){
-					return false;
-				}
-			}
-			ls.removeItem(key);
-			return true;
-		},
-		getAll: function(){
-			var items = [];
-			if (!supported){
-				try {
-					var pairs = document.cookie.split(";");
-					for (var i = 0; i<pairs.length; i++){
-						var pair = pairs[i].split('=');
-						var key = pair[0];
-						items.push({key:key, value:this.parseResult($.cookie(key))});
-					}
-				} catch(e){
-					return null;
-				}
-			} else {
-				for (var j in ls){
-					if (j.length){
-						items.push({key:j, value:this.parseResult(ls.getItem(j))});
-					}
-				}
-			}
-			return items;
-		},
-		parseResult: function(res){
-			var ret;
-			try {
-				ret = JSON.parse(res);
-				if (typeof ret == 'undefined'){
-					ret = res;
-				}
-				if (ret == 'true'){
-					ret = true;
-				}
-				if (ret == 'false'){
-					ret = false;
-				}
-				if (parseFloat(ret) == ret && typeof ret != "object"){
-					ret = parseFloat(ret);
-				}
-			} catch(e){
-				ret = res;
-			}
-			return ret;
-		}
-	};
+    setItem: function (key, value, options) {
+      if (!supported) {
+        try {
+          $.cookie(key, value, options);
+          return value;
+        } catch (e) {
+          console.log('Local Storage not supported by this browser. Install the cookie plugin on your site to take advantage of the same functionality. You can get it at https://github.com/carhartl/jquery-cookie');
+        }
+      }
+      var saver = JSON.stringify(value);
+      ls.setItem(key, saver);
+      return this.parseResult(saver);
+    },
+    getItem: function (key) {
+      if (!supported) {
+        try {
+          return this.parseResult($.cookie(key));
+        } catch (e) {
+          return null;
+        }
+      }
+      var item = ls.getItem(key);
+      return this.parseResult(item);
+    },
+    deleteItem: function (key) {
+      if (!supported) {
+        try {
+          $.cookie(key, null);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+      ls.removeItem(key);
+      return true;
+    },
+    getAll: function () {
+      var items = [];
+      if (!supported) {
+        try {
+          var pairs = document.cookie.split(";");
+          for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split('=');
+            var key = pair[0];
+            items.push({key: key, value: this.parseResult($.cookie(key))});
+          }
+        } catch (e) {
+          return null;
+        }
+      } else {
+        for (var j in ls) {
+          if (j.length) {
+            items.push({key: j, value: this.parseResult(ls.getItem(j))});
+          }
+        }
+      }
+      return items;
+    },
+    parseResult: function (res) {
+      var ret;
+      try {
+        ret = JSON.parse(res);
+        if (typeof ret == 'undefined') {
+          ret = res;
+        }
+        if (ret == 'true') {
+          ret = true;
+        }
+        if (ret == 'false') {
+          ret = false;
+        }
+        if (parseFloat(ret) == ret && typeof ret != "object") {
+          ret = parseFloat(ret);
+        }
+      } catch (e) {
+        ret = res;
+      }
+      return ret;
+    }
+  };
 })(jQuery);

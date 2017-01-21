@@ -1,6 +1,6 @@
 {
     "name": "jquery-total-storage",
-    "version": "1.0.0",
+    "version": "1.1.3",
     "description": "Local storage for every browser",
     "license": "MIT",
     "ignore": [
